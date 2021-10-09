@@ -6,7 +6,7 @@ node (label: 'stageenv'){
      }      
   stage('Build image') 
      {                
-       app = docker.build("arjunm183/nginx")     
+       app = docker.build("jyothi307/nginx")     
      }      
   stage('Push image') {
        docker.withRegistry('https://registry.hub.docker.com', '	dockerhubcreds') {            
@@ -24,7 +24,7 @@ node (label: 'stageenv'){
   {
         sh ''' echo "Deploying Container Image" '''
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhubcreds')  {
-        docker.image("arjunm183/nginx:${env.BUILD_NUMBER}").run('--name nginx -p 80:80 -d')
+        docker.image("jyothi307/nginx:${env.BUILD_NUMBER}").run('--name nginx -p 80:80 -d')
         sh '''
         sleep 5
         echo "Checking if WebServer is working Post deployment"
@@ -40,7 +40,7 @@ node (label: 'prodenv'){
   {
         sh ''' echo "Deploying Container Image" '''
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhubcreds')  {
-        docker.image("arjunm183/nginx:${env.BUILD_NUMBER}").run('--name nginx -p 80:80 -d')
+        docker.image("jyothi307/nginx:${env.BUILD_NUMBER}").run('--name nginx -p 80:80 -d')
         sh '''
         sleep 5
         echo "Checking if WebServer is working Post deployment"
