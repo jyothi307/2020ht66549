@@ -36,3 +36,4 @@ node (label: 'stageenv'){
         }  
      }
   }
+}
