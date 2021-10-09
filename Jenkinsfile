@@ -20,8 +20,7 @@ node (label: 'stageenv'){
           sh 'echo "Tests passed"'         
                  }     
   }      
-  node (label: 'prodenv'){
-  stage('Deploy image on Production Environment') 
+  stage('Deploy image on Staging Environment') 
   {
         sh ''' echo "Deploying Container Image" '''
         docker.withRegistry('https://registry.hub.docker.com', 'jyothidockerhub')  {
