@@ -19,7 +19,21 @@ node (label: 'stageenv'){
        app.inside {             
           sh 'echo "Tests passed"'         
                  }     
-  }    
+  } 
+  stage('Deploy image on Staging Environment') 
+  {
+        sh ''' echo "Deploying Container Image" '''
+        docker.withRegistry('https://registry.hub.docker.com', 'jyothidockerhub')  {
+        docker.image("jyothi307/nginx:${env.BUILD_NUMBER}").run('--name nginx -p 80:80 -d')
+        sh '''
+        sleep 5
+        echo "Checking if WebServer is working Post deployment"
+        curl http://localhost
+        docker stop nginx
+        docker rm nginx
+        '''
+        } 
+  }
   node (label: 'prodenv'){
   stage('Deploy image on Production Environment') 
   {
